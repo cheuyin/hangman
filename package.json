@@ -1,0 +1,12 @@
+{
+  "name": "hangman",
+  "version": "1.0.0",
+  "description": "Hangman game",
+  "main": "index.js",
+  "author": "Stanley Cheung",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.3.3"
+  }
+}
