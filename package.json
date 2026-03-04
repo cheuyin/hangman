@@ -7,6 +7,14 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@types/node": "^25.3.3"
+    "@types/node": "^25.3.3",
+    "@types/prompt-sync": "^4.2.3"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/main.js"
   }
 }
