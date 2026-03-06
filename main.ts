@@ -31,7 +31,7 @@ function runGame() {
     wordManager.printCorrectGuessses();
 
     // Get guess
-    const guess = getGuess();
+    const guess = getGuess(wordManager);
 
     // Update guesses
     const isGuessCorrect: boolean = wordManager.processGuess(guess);
@@ -72,19 +72,28 @@ runGame();
 
 // Gets console input from user; keeps asking until it gets valid input
 // Only accepts alphabetical characters
+// Makes sure that letter hasn't been guessed already
 // Returns the lower case of that character
-function getGuess(): string {
+function getGuess(wordManager: WordManager): string {
   while (true) {
-    const name = prompt("Guess a letter: ");
+    const guess = prompt("Guess a letter: ");
     const lettersOnly = /^[a-zA-Z]+$/;
-    if (name.length !== 1) {
+    if (guess.length !== 1) {
       console.log("Your guess should be one letter. Please try again.");
-    } else if (!lettersOnly.test(name)) {
+    } else if (!lettersOnly.test(guess)) {
       console.log(
         "Your guess should be a letter in the alphabet. Please try again.",
       );
+    } else if (wordManager.getWrongGuesses().includes(guess.toLowerCase())) {
+      console.log(
+        `You already guessed '${guess.toLowerCase()}'. Please try again.`,
+      );
+    } else if (wordManager.getCorrectGuesses().includes(guess.toLowerCase())) {
+      console.log(
+        `You already guessed '${guess.toLowerCase()}'. Please try again.`,
+      );
     } else {
-      return name.toLowerCase();
+      return guess.toLowerCase();
     }
   }
 }
