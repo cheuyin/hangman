@@ -36,8 +36,8 @@ export default class WordManager {
 
   // Takes a guessed letter from the user
   // Updates the game state based on this guess
-  // Returns the array of correct guesses
-  public processGuess(guess: string) {
+  // Returns true if guess was correct; false otherwise
+  public processGuess(guess: string): boolean {
     const formattedGuess = guess.toLocaleLowerCase();
     if (this.secretWord.includes(formattedGuess)) {
       // Update correctGuesses
@@ -49,8 +49,10 @@ export default class WordManager {
       for (let idx of indexes) {
         this.correctGuesses[idx] = guess;
       }
+      return true;
     } else {
       this.wrongGuesses.push(guess);
+      return false;
     }
   }
 
@@ -60,8 +62,8 @@ export default class WordManager {
     return !this.correctGuesses.includes("_");
   }
 
-  public getSecretWord(): string[] {
-    return this.secretWord;
+  public getSecretWord(): string {
+    return this.secretWord.join("");
   }
 
   public getCorrectGuesses(): string[] {

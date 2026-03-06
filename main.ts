@@ -1,6 +1,7 @@
 import promptSync from "prompt-sync";
 import HangmanDrawing from "./hangman-drawing.js";
 import WordManager from "./word-manager.js";
+import { HANGMAN_INDEX } from "types.js";
 
 const prompt = promptSync();
 
@@ -10,29 +11,50 @@ function runGame() {
 
   const hangmanDrawing = new HangmanDrawing();
   const wordManager = new WordManager();
-  const currentHangmanStep = 0;
+  let currentHangmanStep: HANGMAN_INDEX = 0;
 
-  const gameRunning = true;
+  let gameRunning = true;
 
   // LOOP:
   while (gameRunning) {
     // Draw game states
-    hangmanDrawing.draw(currentHangmanStep);
+    hangmanDrawing.draw(currentHangmanStep as HANGMAN_INDEX);
     console.log("Wrong Guesses: ", wordManager.getWrongGuesses());
     console.log("Correct Guesses: ", wordManager.getCorrectGuesses());
 
     // Get guess
     const guess = getGuess();
-    // Update guesses
-    wordManager.processGuess(guess);
-    // Check if game is over
-    // Repeat
-  }
-}
 
+    // Update guesses
+    const isGuessCorrect: boolean = wordManager.processGuess(guess);
+
+    // Check if game is over
+    if (wordManager.checkAllLettersGuessed()) {
+      // Game is won
+      gameRunning = false;
+      console.log(
+        `Nice! You correctly guessed ${wordManager.getSecretWord()}.`,
+      );
+    } else {
+      if (!isGuessCorrect) {
+        if (currentHangmanStep === 5) {
+          gameRunning = false;
+          hangmanDrawing.draw(6);
+          console.log(`You lost.`);
+          console.log("Wrong Guesses: ", wordManager.getWrongGuesses());
+          console.log(`The secret word was ${wordManager.getSecretWord()}.`);
+        }
+
+        currentHangmanStep++;
+      }
+    }
+  }
+
+  console.log("The game is over.");
+}
 runGame();
 
-// Gets console input from user
+// Gets console input from user; keeps asking until it gets valid input
 // Only accepts alphabetical characters
 // Returns the lower case of that character
 function getGuess(): string {
