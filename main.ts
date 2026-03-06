@@ -7,7 +7,15 @@ const prompt = promptSync();
 
 function runGame() {
   // Introductory Message
-  console.log("Let's Play Hangman!");
+  console.log(
+    `
+    ██   ██  █████  ███    ██  ██████  ███    ███  █████  ███    ██
+    ██   ██ ██   ██ ████   ██ ██       ████  ████ ██   ██ ████   ██
+    ███████ ███████ ██ ██  ██ ██   ███ ██ ████ ██ ███████ ██ ██  ██
+    ██   ██ ██   ██ ██  ██ ██ ██    ██ ██  ██  ██ ██   ██ ██  ██ ██
+    ██   ██ ██   ██ ██   ████  ██████  ██      ██ ██   ██ ██   ████
+    `,
+  );
 
   const hangmanDrawing = new HangmanDrawing();
   const wordManager = new WordManager();
@@ -19,8 +27,8 @@ function runGame() {
   while (gameRunning) {
     // Draw game states
     hangmanDrawing.draw(currentHangmanStep as HANGMAN_INDEX);
-    console.log("Wrong Guesses: ", wordManager.getWrongGuesses());
-    console.log("Correct Guesses: ", wordManager.getCorrectGuesses());
+    wordManager.printWrongGuesses();
+    wordManager.printCorrectGuessses();
 
     // Get guess
     const guess = getGuess();
@@ -41,7 +49,7 @@ function runGame() {
           gameRunning = false;
           hangmanDrawing.draw(6);
           console.log(`You lost.`);
-          console.log("Wrong Guesses: ", wordManager.getWrongGuesses());
+          wordManager.printWrongGuesses();
           console.log(`The secret word was ${wordManager.getSecretWord()}.`);
         }
 
