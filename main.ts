@@ -28,7 +28,7 @@ function runGame() {
     // Draw game states
     hangmanDrawing.draw(currentHangmanStep as HANGMAN_INDEX);
     wordManager.printWrongGuesses();
-    wordManager.printCorrectGuessses();
+    wordManager.printCorrectGuesses();
 
     // Get guess
     const guess = getGuess(wordManager);

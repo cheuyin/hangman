@@ -79,7 +79,7 @@ export default class WordManager {
     console.log("Wrong Guesses: " + formattedString);
   }
 
-  public printCorrectGuessses(): void {
+  public printCorrectGuesses(): void {
     const formattedString = this.correctGuesses.join("  ");
     console.log("Correct Guesses: " + formattedString);
   }
