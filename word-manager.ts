@@ -1,35 +1,25 @@
-import { readFileSync } from "fs";
-
 export default class WordManager {
+  private words: string[];
   private secretWord: string[]; // Array of characters in the word, all lowercase
   private wrongGuesses: string[];
   private correctGuesses: string[];
 
-  constructor() {
+  constructor(words: string[]) {
+    this.words = words;
     this.secretWord = this.chooseRandomWord().split("");
     this.wrongGuesses = [];
     this.correctGuesses = Array(this.secretWord.length).fill("_");
   }
 
   public chooseRandomWord(): string {
-    // Load word-list.txt
-    let content;
-    try {
-      content = readFileSync("./word-list.txt", "utf-8");
-      content = content.split("\n");
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-
     // Get total number of words
-    const numWords = content.length;
+    const numWords = this.words.length;
 
     // Pick random number
     const randomIndex = Math.floor(Math.random() * numWords);
 
     // Choose that word
-    const randomWord = content[randomIndex]?.toLowerCase() as string;
+    const randomWord = this.words[randomIndex]?.toLowerCase() as string;
 
     return randomWord;
   }

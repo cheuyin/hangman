@@ -2,6 +2,7 @@ import promptSync from "prompt-sync";
 import HangmanDrawing from "./hangman-drawing.js";
 import WordManager from "./word-manager.js";
 import { HANGMAN_INDEX } from "types.js";
+import { readFileSync } from "fs";
 
 const prompt = promptSync();
 
@@ -17,8 +18,18 @@ function runGame() {
     `,
   );
 
+  // Load word list
+  let content;
+  try {
+    content = readFileSync("./word-list.txt", "utf-8");
+    content = content.split("\n");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+
   const hangmanDrawing = new HangmanDrawing();
-  const wordManager = new WordManager();
+  const wordManager = new WordManager(content);
   let currentHangmanStep: HANGMAN_INDEX = 0;
 
   let gameRunning = true;
