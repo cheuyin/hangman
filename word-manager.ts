@@ -63,14 +63,4 @@ export default class WordManager {
   public getWrongGuesses(): string[] {
     return this.wrongGuesses;
   }
-
-  public printWrongGuesses(): void {
-    const formattedString = this.wrongGuesses.join("  ");
-    console.log("Wrong Guesses: " + formattedString);
-  }
-
-  public printCorrectGuesses(): void {
-    const formattedString = this.correctGuesses.join("  ");
-    console.log("Correct Guesses: " + formattedString);
-  }
 }

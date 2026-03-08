@@ -38,8 +38,8 @@ function runGame() {
   while (gameRunning) {
     // Draw game states
     hangmanDrawing.draw(currentHangmanStep as HANGMAN_INDEX);
-    wordManager.printWrongGuesses();
-    wordManager.printCorrectGuesses();
+    printWrongGuesses(wordManager.getWrongGuesses());
+    printCorrectGuesses(wordManager.getCorrectGuesses());
 
     // Get guess
     const guess = getGuess(wordManager);
@@ -60,7 +60,7 @@ function runGame() {
           gameRunning = false;
           hangmanDrawing.draw(6);
           console.log(`You lost.`);
-          wordManager.printWrongGuesses();
+          printWrongGuesses(wordManager.getWrongGuesses());
           console.log(`The secret word was ${wordManager.getSecretWord()}.`);
         }
 
@@ -80,6 +80,16 @@ function runGame() {
   );
 }
 runGame();
+
+function printWrongGuesses(wrongGuesses: string[]): void {
+  const formattedString = wrongGuesses.join("  ");
+  console.log("Wrong Guesses: " + formattedString);
+}
+
+function printCorrectGuesses(correctGuesses: string[]): void {
+  const formattedString = correctGuesses.join("  ");
+  console.log("Correct Guesses: " + formattedString);
+}
 
 // Gets console input from user; keeps asking until it gets valid input
 // Only accepts alphabetical characters
