@@ -1,4 +1,4 @@
-import { HANGMAN_INDEX } from "types";
+import { HANGMAN_STEP } from "./types.js";
 
 const HANGMAN_PICS = [
   `
@@ -59,6 +59,6 @@ const HANGMAN_PICS = [
 =========`,
 ];
 
-export function getDrawingString(index: HANGMAN_INDEX) {
-  return HANGMAN_PICS[index];
+export function getDrawingString(step: HANGMAN_STEP) {
+  return HANGMAN_PICS[step];
 }

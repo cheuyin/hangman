@@ -1,7 +1,7 @@
 import promptSync from "prompt-sync";
 import { getDrawingString } from "./hangman-drawing.js";
 import WordManager from "./word-manager.js";
-import { HANGMAN_INDEX } from "types.js";
+import { HANGMAN_STEP } from "./types.js";
 import { readFileSync } from "fs";
 
 const prompt = promptSync();
@@ -29,16 +29,14 @@ function runGame() {
   }
 
   const wordManager = new WordManager(content);
-  let currentHangmanStep: HANGMAN_INDEX = 0;
+  let currentHangmanStep: HANGMAN_STEP = HANGMAN_STEP.EMPTY;
 
   let gameRunning = true;
 
   // LOOP:
   while (gameRunning) {
     // Draw game states
-    const currentDrawing = getDrawingString(
-      currentHangmanStep as HANGMAN_INDEX,
-    );
+    const currentDrawing = getDrawingString(currentHangmanStep);
     console.log(currentDrawing);
     printWrongGuesses(wordManager.getWrongGuesses());
     printCorrectGuesses(wordManager.getCorrectGuesses());
@@ -58,9 +56,9 @@ function runGame() {
       );
     } else {
       if (!isGuessCorrect) {
-        if (currentHangmanStep === 5) {
+        if (currentHangmanStep === HANGMAN_STEP.LEFT_LEG) {
           gameRunning = false;
-          const finalDrawing = getDrawingString(6);
+          const finalDrawing = getDrawingString(HANGMAN_STEP.RIGHT_LEG);
           console.log(finalDrawing);
           console.log(`You lost.`);
           printWrongGuesses(wordManager.getWrongGuesses());
