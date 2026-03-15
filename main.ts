@@ -3,6 +3,7 @@ import { getDrawingString } from "./hangman-drawing";
 import WordManager from "./word-manager";
 import { HANGMAN_STEP } from "./types";
 import { readFileSync } from "fs";
+import { exit } from "process";
 
 const prompt = promptSync();
 
@@ -43,6 +44,11 @@ function runGame() {
 
     // Get guess
     const guess = getGuess(wordManager);
+
+    if (guess === null) {
+      gameRunning = false;
+      break;
+    }
 
     // Update guesses
     const isGuessCorrect: boolean = wordManager.processGuess(guess);
@@ -96,9 +102,14 @@ function printCorrectGuesses(correctGuesses: string[]): void {
 // Only accepts alphabetical characters
 // Makes sure that letter hasn't been guessed already
 // Returns the lower case of that character
-function getGuess(wordManager: WordManager): string {
+function getGuess(wordManager: WordManager): string | null {
   while (true) {
     const guess = prompt("Guess a letter: ");
+
+    if (guess === null) {
+      return null;
+    }
+
     const lettersOnly = /^[a-zA-Z]+$/;
     if (guess.length !== 1) {
       console.log("Your guess should be one letter. Please try again.");
