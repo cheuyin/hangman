@@ -69,9 +69,9 @@ function runGame() {
           console.log(`You lost.`);
           printWrongGuesses(wordManager.getWrongGuesses());
           console.log(`The secret word was ${wordManager.getSecretWord()}.`);
+        } else {
+          currentHangmanStep++;
         }
-
-        currentHangmanStep++;
       }
     }
   }
