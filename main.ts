@@ -117,11 +117,10 @@ function getGuess(wordManager: WordManager): string | null {
       console.log(
         "Your guess should be a letter in the alphabet. Please try again.",
       );
-    } else if (wordManager.getWrongGuesses().includes(guess.toLowerCase())) {
-      console.log(
-        `You already guessed '${guess.toLowerCase()}'. Please try again.`,
-      );
-    } else if (wordManager.getCorrectGuesses().includes(guess.toLowerCase())) {
+    } else if (
+      wordManager.getWrongGuesses().includes(guess.toLowerCase()) ||
+      wordManager.getCorrectGuesses().includes(guess.toLowerCase())
+    ) {
       console.log(
         `You already guessed '${guess.toLowerCase()}'. Please try again.`,
       );
