@@ -8,13 +8,14 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^25.3.3",
-    "@types/prompt-sync": "^4.2.3"
+    "@types/prompt-sync": "^4.2.3",
+    "tsx": "^4.21.0"
   },
   "dependencies": {
     "prompt-sync": "^4.2.0"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "tsc && node dist/main.js"
+    "start": "tsx main.ts",
+    "tscheck": "tsc --noEmit"
   }
 }

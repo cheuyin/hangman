@@ -1,7 +1,7 @@
 import promptSync from "prompt-sync";
-import { getDrawingString } from "./hangman-drawing.js";
-import WordManager from "./word-manager.js";
-import { HANGMAN_STEP } from "./types.js";
+import { getDrawingString } from "./hangman-drawing";
+import WordManager from "./word-manager";
+import { HANGMAN_STEP } from "./types";
 import { readFileSync } from "fs";
 
 const prompt = promptSync();

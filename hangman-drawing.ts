@@ -1,4 +1,4 @@
-import { HANGMAN_STEP } from "./types.js";
+import { HANGMAN_STEP } from "./types";
 
 const HANGMAN_PICS = [
   `
