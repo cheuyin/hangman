@@ -3,7 +3,6 @@ import { getDrawingString } from "./hangman-drawing";
 import WordManager from "./word-manager";
 import { HANGMAN_STEP } from "./types";
 import { readFileSync } from "fs";
-import { exit } from "process";
 
 const prompt = promptSync();
 
@@ -57,6 +56,7 @@ function runGame() {
     if (wordManager.checkAllLettersGuessed()) {
       // Game is won
       gameRunning = false;
+      printCorrectGuesses(wordManager.getCorrectGuesses());
       console.log(
         `Nice! You correctly guessed ${wordManager.getSecretWord()}.`,
       );
