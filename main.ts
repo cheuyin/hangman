@@ -1,5 +1,5 @@
 import promptSync from "prompt-sync";
-import HangmanDrawing from "./hangman-drawing.js";
+import { getDrawingString } from "./hangman-drawing.js";
 import WordManager from "./word-manager.js";
 import { HANGMAN_INDEX } from "types.js";
 import { readFileSync } from "fs";
@@ -28,7 +28,6 @@ function runGame() {
     throw err;
   }
 
-  const hangmanDrawing = new HangmanDrawing();
   const wordManager = new WordManager(content);
   let currentHangmanStep: HANGMAN_INDEX = 0;
 
@@ -37,7 +36,10 @@ function runGame() {
   // LOOP:
   while (gameRunning) {
     // Draw game states
-    hangmanDrawing.draw(currentHangmanStep as HANGMAN_INDEX);
+    const currentDrawing = getDrawingString(
+      currentHangmanStep as HANGMAN_INDEX,
+    );
+    console.log(currentDrawing);
     printWrongGuesses(wordManager.getWrongGuesses());
     printCorrectGuesses(wordManager.getCorrectGuesses());
 
@@ -58,7 +60,8 @@ function runGame() {
       if (!isGuessCorrect) {
         if (currentHangmanStep === 5) {
           gameRunning = false;
-          hangmanDrawing.draw(6);
+          const finalDrawing = getDrawingString(6);
+          console.log(finalDrawing);
           console.log(`You lost.`);
           printWrongGuesses(wordManager.getWrongGuesses());
           console.log(`The secret word was ${wordManager.getSecretWord()}.`);

@@ -59,14 +59,6 @@ const HANGMAN_PICS = [
 =========`,
 ];
 
-export default class HangmanDrawing {
-  constructor() {}
-
-  public drawInitial() {
-    this.draw(0);
-  }
-
-  public draw(index: HANGMAN_INDEX) {
-    console.log(HANGMAN_PICS[index]);
-  }
+export function getDrawingString(index: HANGMAN_INDEX) {
+  return HANGMAN_PICS[index];
 }
